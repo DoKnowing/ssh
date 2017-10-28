@@ -1,6 +1,7 @@
 package client.action;
 
 import client.model.Client;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
@@ -11,7 +12,9 @@ public class LoginAction extends ActionSupport{
     private String checkCode;
 
     public String login(){
+        client.setPswd(null);
 
+        ActionContext.getContext().getSession().put("client",client);
         return "success";
     }
 

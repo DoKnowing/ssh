@@ -16,24 +16,165 @@
             <result name="failure">/WEB-INF/client/register/activate_failure.jsp?message=${message}</result>
         </action>
         <action name="login" class="client.action.LoginAction" method="login">
-            <result name="success" type="chain">home</result>
+            <result name="success" type="chain">homePage</result>
             <result name="failure">/login.jsp</result>
             <result name="input">/login.jsp</result>
         </action>
-        <action name="home" class="client.action.HomeAction" method="home">
+        <action name="homePage" class="client.action.HomeAction" method="homePage">
             <result name="success">/WEB-INF/client/home.jsp</result>
         </action>
         <action name="createCheckCode" class="client.action.CreateImageAction" method="create">
         </action>
 
-    </package>
-    <package name="manager" namespace="/manager" extends="struts-default">
+        <action name="activity_*" class="client.action.ActivityAction" method="{1}">
+            <result name="success">/WEB-INF/client/activity/activity.jsp</result>
+        </action>
+        <action name="detailPage" class="client.action.ActivityAction" method="detailPage">
+            <result name="success">/WEB-INF/client/activity/detail.jsp</result>
+        </action>
+        <action name="moreDetailPage" class="client.action.ActivityAction" method="moreDetailPage">
+            <result name="success">/WEB-INF/client/activity/moreDetail.jsp</result>
+        </action>
+        <action name="participatorDetail" class="client.action.ClientAction" method="participator">
+            <result name="success">/WEB-INF/client/client/participatorDetail.jsp</result>
+        </action>
+        <action name="participatePage" class="client.action.ActivityAction" method="participatePage">
+            <result name="success">/WEB-INF/client/activity/fillInformation.jsp?activityId=${activityId}</result>
+            <result name="failure">/WEB-INF/client/activity/participateFailure.jsp</result>
+        </action>
+        <action name="participate" class="client.action.ActivityAction" method="participate">
+            <result>/WEB-INF/client/activity/success.jsp</result>
+        </action>
+        <action name="creaActPage" class="client.action.ActivityAction" method="creaActPage">
+            <result>/WEB-INF/client/activity/createActivity.jsp</result>
+            <result name="failure">/WEB-INF/client/activity/createPageFailure.jsp</result>
+        </action>
+        <action name="createActivity" class="client.action.ActivityAction" method="createActivity">
+            <result>/WEB-INF/client/activity/success.jsp</result>
+        </action>
 
+        <action name="personalPage" class="client.action.ClientAction" method="personalPage">
+            <result name="success">/WEB-INF/client/client/personalPage.jsp</result>
+        </action>
+        <action name="modifyImgUrlPage" class="client.action.ClientAction" method="modifyImgUrlPage">
+            <result name="success">/WEB-INF/client/client/modifyImgUrlPage.jsp</result>
+        </action>
+        <action name="modifyPersonalInfoPage" class="client.action.ClientAction" method="modifyPersonalInfoPage">
+            <result name="success">/WEB-INF/client/client/modifyPersonalInfo.jsp</result>
+        </action>
+        <action name="modifyImgUrl" class="client.action.ClientAction" method="modifyImgUrl">
+            <result name="success">/WEB-INF/client/client/success.jsp</result>
+        </action>
+        <action name="modifyPersonalInfo" class="client.action.ClientAction" method="modifyPersonalInfo">
+            <result name="success">/WEB-INF/client/client/success.jsp</result>
+        </action>
+
+        <action name="authPage" class="client.action.AuthenticationAction" method="authPage">
+            <result name="success">/WEB-INF/client/authentication/authentication.jsp</result>
+            <result name="authMessage" type="redirect">authMessagePage</result>
+        </action>
+        <action name="authentication" class="client.action.AuthenticationAction" method="authentication">
+            <result name="success">/WEB-INF/client/authentication/authSuccess.jsp</result>
+            <result name="failure">/WEB-INF/client/authentication/authFailure.jsp</result>
+        </action>
+        <action name="authMessagePage" class="client.action.AuthenticationAction" method="authMessagePage">
+            <result>/WEB-INF/client/authentication/authMessagePage.jsp</result>
+        </action>
+
+        <action name="myCreaActPage" class="client.action.ActivityAction" method="myCreaActPage">
+            <result name="success">/WEB-INF/client/client/myCreaActPage.jsp</result>
+        </action>
+        <action name="myPartActPage" class="client.action.ActivityAction" method="myPartActPage">
+            <result name="success">/WEB-INF/client/client/myPartActPage.jsp</result>
+        </action>
+        <action name="closeActivity" class="client.action.ActivityAction" method="closeActivity">
+            <result>/WEB-INF/client/activity/success.jsp</result>
+            <result name="failure">/WEB-INF/client/activity/failure.jsp</result>
+        </action>
+        <action name="dropOutActivity" class="client.action.ActivityAction" method="dropOutActivity">
+            <result name="success">/WEB-INF/client/activity/success.jsp</result>
+        </action>
+        <action name="myActivityDetailPage" class="client.action.ActivityAction" method="myActivityDetailPage">
+            <result name="success">/WEB-INF/client/client/myActivityDetail.jsp</result>
+        </action>
     </package>
-    <!--<package name="manager" namespace="/manager" extends="struts-default">-->
-        <!--<action name="manager_*" class="action.manager.ManagerAction" method="{1}">-->
-            <!--<result name="success"></result>-->
-            <!--<result name="error"></result>-->
-        <!--</action>-->
-    <!--</package>-->
+
+
+    <package name="client_address" namespace="/client_address" extends="json-default">
+        <action name="getCity" class="client.action.AuthenticationAction" method="getCity">
+            <result type="json">
+            <param name="root">returnCity</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="manager_base" namespace="/manager/base" extends="struts-default">
+        <action name="login" class="manager.action.manager.BaseAction" method="login">
+            <result name="success">/WEB-INF/manager/base/home.jsp</result>
+            <result name="error">/WEB-INF/manager/base/home.jsp</result>
+        </action>
+        <action name="homePage" class="manager.action.manager.BaseAction" method="homePage">
+            <result name="success">/WEB-INF/manager/base/home.jsp</result>
+        </action>
+    </package>
+    <package name="manager_manageUser" namespace="/manager/manageUser" extends="struts-default">
+        <action name="manageUserPage" class="manager.action.ManageUserAction" method="manageUserPage">
+            <result>/WEB-INF/manager/manageUser/manageUser.jsp</result>
+        </action>
+        <action name="addUserPage" class="manager.action.ManageUserAction" method="addUserPage">
+            <result>/WEB-INF/manager/manageUser/addUser.jsp</result>
+        </action>
+        <action name="addUser" class="manager.action.ManageUserAction" method="addUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="deleteUser"  class="manager.action.ManageUserAction" method="deleteUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+    </package>
+    <package name="manager_manageCatgory" namespace="/manager/manageCatgory" extends="struts-default">
+        <action name="manageUserPage" class="manager.action.ManageUserAction" method="manageUserPage">
+            <result>/WEB-INF/manager/manageUser/manageUser.jsp</result>
+        </action>
+        <action name="addUserPage" class="manager.action.ManageUserAction" method="addUserPage">
+            <result>/WEB-INF/manager/manageUser/addUser.jsp</result>
+        </action>
+        <action name="addUser" class="manager.action.ManageUserAction" method="addUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="deleteUser"  class="manager.action.ManageUserAction" method="deleteUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+    </package>
+    <package name="manager_manageActivity" namespace="/manager/manageActivity" extends="struts-default">
+        <action name="manageUserPage" class="manager.action.ManageUserAction" method="manageUserPage">
+            <result>/WEB-INF/manager/manageUser/manageUser.jsp</result>
+        </action>
+        <action name="addUserPage" class="manager.action.ManageUserAction" method="addUserPage">
+            <result>/WEB-INF/manager/manageUser/addUser.jsp</result>
+        </action>
+        <action name="addUser" class="manager.action.ManageUserAction" method="addUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="modifyUserPage"  class="manager.action.ManageUserAction" method="modifyUserPage">
+            <result>/WEB-INF/manager/manageUser/modifyUser.jsp</result>
+        </action>
+        <action name="deleteUser"  class="manager.action.ManageUserAction" method="deleteUser">
+            <result>/WEB-INF/manager/manageUser/success.jsp</result>
+        </action>
+    </package>
 </struts>

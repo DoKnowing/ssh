@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Login</title>
-    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
         function refresh() {
             $("#img").attr("src","/client/createCheckCode.action?d="+new Date().valueOf());

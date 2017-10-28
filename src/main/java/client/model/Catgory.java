@@ -6,16 +6,16 @@ package client.model;
  * @explain:
  */
 public class Catgory {
-    private int id;
+    private long id;
     private String name;
     private String title;
     private String urlImage;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

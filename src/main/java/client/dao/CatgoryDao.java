@@ -22,4 +22,11 @@ public class CatgoryDao {
         }
         return catgories;
     }
+
+    public Catgory getCategoryById(int catgoryId) {
+        Catgory catgory=new Catgory();
+        catgory.setName("cateName");
+        catgory.setTitle("CateTitle");
+        return catgory;
+    }
 }

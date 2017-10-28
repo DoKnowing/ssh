@@ -2,8 +2,11 @@ package client.action;
 
 import client.dao.ActivityDao;
 import client.dao.CatgoryDao;
+import client.dao.ClientDao;
 import client.model.Activity;
 import client.model.Catgory;
+import client.model.Client;
+import com.opensymphony.xwork2.ActionContext;
 
 import java.util.List;
 
@@ -17,10 +20,14 @@ public class HomeAction {
     List<Activity> activities;
     CatgoryDao catgoryDao=new CatgoryDao();
     ActivityDao activityDao=new ActivityDao();
+    ClientDao clientDao=new ClientDao();
 
-    public String home(){
+    public String homePage(){
+
         this.catgories=catgoryDao.getCatgories();
-        this.activities=activityDao.getActivities();
+        Client user= (Client)ActionContext.getContext().getSession().get("client");
+        Client client=clientDao.getClientByEmail(user.getEmail());
+        this.activities=activityDao.getActivitiesByInstitution(client.getInstitution());
         return "success";
     }
 

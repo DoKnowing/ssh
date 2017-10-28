@@ -7,6 +7,11 @@ public class Client {
     private String name;
     private String pswd;
     private String email;//注册账号
+    private String institution;//学校
+    private String gender;
+    private int age;
+    private String imgUrl;
+    private int isAuthenticated;
     private int status=0;//激活状态
     private String validateCode;
     private Date registerTime;
@@ -53,6 +58,14 @@ public class Client {
         this.email = email;
     }
 
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -75,6 +88,38 @@ public class Client {
 
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public int getIsAuthenticated() {
+        return isAuthenticated;
+    }
+
+    public void setIsAuthenticated(int isAuthenticated) {
+        this.isAuthenticated = isAuthenticated;
     }
 }
 
