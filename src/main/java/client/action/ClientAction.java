@@ -1,8 +1,8 @@
 package client.action;
 
-import client.dao.ClientDao;
-import client.model.Activity;
-import client.model.Client;
+import common.dao.ClientDao;
+import common.model.Activity;
+import common.model.Client;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -36,16 +36,16 @@ public class ClientAction {
     }
 
     public String modifyImgUrl() throws IOException {
-        String realPath= ServletActionContext.getServletContext().
-                getRealPath("/WEB-INF/imgs/");
-        File saveFile=new File(realPath,imgFileName);
-        FileUtils.copyFile(img,saveFile);
-
-        Client user=(Client)ActionContext.getContext().getSession().get("client");
-        user=clientDao.getClientByEmail(user.getEmail());
-        user.setImgUrl(realPath+imgFileName);
-        clientDao.save(user);
-        return "success";
+        if(imgFileName!=null && !"".equals(imgFileName)) {
+            String realPath = ServletActionContext.getServletContext().
+                    getRealPath("/imgs/client/");
+            File saveFile = new File(realPath, imgFileName);
+            FileUtils.copyFile(img, saveFile);
+            Client user=(Client)ActionContext.getContext().getSession().get("client");
+            user=clientDao.getClientByEmail(user.getEmail());
+            user.setImgUrl(realPath+imgFileName);
+            clientDao.save(user);
+        }        return "success";
     }
 
     public String modifyImgUrlPage(){
@@ -58,16 +58,16 @@ public class ClientAction {
     public String modifyPersonalInfo(){
         Client user=(Client)ActionContext.getContext().getSession().get("client");
         user=clientDao.getClientByEmail(user.getEmail());
-        if(!client.getName().equals("")){
+        if(client.getName()!=null && !"".equals(client.getName())){
             user.setName(client.getName());
         }
-        if(!client.getGender().equals("")){
+        if(client.getGender()!=null && !"".equals(client.getGender())){
             user.setGender(client.getGender());
         }
         if(client.getAge()>0){
             user.setAge(client.getAge());
         }
-        if(!client.getEmail().equals("")){
+        if(client.getEmail()!=null && !"".equals(client.getEmail())){
             user.setEmail(client.getEmail());
         }
         clientDao.save(user);

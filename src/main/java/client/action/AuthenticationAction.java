@@ -1,10 +1,9 @@
 package client.action;
 
 import client.dao.AddressDao;
-import client.dao.ClientDao;
+import common.dao.ClientDao;
 import client.model.AuthMessage;
-import client.model.City;
-import client.model.Client;
+import common.model.Client;
 import client.model.Province;
 import com.opensymphony.xwork2.ActionContext;
 import net.sf.json.JSONObject;
@@ -15,23 +14,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static sun.plugin2.util.PojoUtil.toJson;
-
 public class AuthenticationAction {
-    ClientDao clientDao=new ClientDao();
-    AddressDao addressDao=new AddressDao();
-    AuthMessage message;
-    List<Province> provinces;
+    private ClientDao clientDao=new ClientDao();
+    private AddressDao addressDao=new AddressDao();
+    private AuthMessage message;
+    private List<Province> provinces;
 
     private long provinceId;
     private String returnCity;
@@ -47,11 +40,21 @@ public class AuthenticationAction {
 
     public String authentication() throws Exception {
         Map map=new HashMap();
-        map.put("name",message.getRealName());
-        map.put("location",message.getLocation());
-        map.put("provinceId",message.getProvinceId());
-        map.put("cityId",message.getCityId());
-        map.put("mode",message.getMode());
+        if(message.getRealName()!=null && !"".equals(message.getRealName())) {
+            map.put("name", message.getRealName());
+        }
+        if(message.getRealName()!=null && !"".equals(message.getRealName())) {
+            map.put("location", message.getLocation());
+        }
+        if(message.getRealName()!=null && !"".equals(message.getRealName())) {
+            map.put("provinceId", message.getProvinceId());
+        }
+        if(message.getRealName()!=null && !"".equals(message.getRealName())) {
+            map.put("cityId", message.getCityId());
+        }
+        if(message.getRealName()!=null && !"".equals(message.getRealName())) {
+           map.put("mode", message.getMode());
+        }
         JSONObject json = JSONObject.fromObject(map);
 
         String result;
@@ -97,7 +100,6 @@ public class AuthenticationAction {
         returnCity=json.toString();
         return "success";
     }
-
 
 
     public String authMessagePage(){

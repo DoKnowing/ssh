@@ -1,16 +1,21 @@
 package manager.action;
 
-import client.dao.ClientDao;
-import client.model.Client;
-import com.opensymphony.xwork2.ActionContext;
+import common.dao.ClientDao;
+import common.model.Client;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class ManageUserAction {
     ClientDao clientDao=new ClientDao();
     List<Client> clients;
     Client client;
-    long clientId;
+    private long clientId;
+    private File img;
+    private String imgFileName;
 
     public String manageUserPage(){
         this.clients=clientDao.getAllClient();
@@ -18,11 +23,11 @@ public class ManageUserAction {
     }
 
     public String addUserPage(){
-        clientDao.save(client);
         return "success";
     }
 
     public String addUser(){
+        clientDao.save(client);
         return "success";
     }
 
@@ -32,19 +37,26 @@ public class ManageUserAction {
 
     }
 
-    public String modifyUser(){
+    public String modifyUser() throws IOException {
         Client client=clientDao.getClientById(clientId);
-        if(!client.getName().equals("")){
+        if(client.getName()!=null && !"".equals(client.getName())){
             client.setName(client.getName());
         }
-        if(!client.getGender().equals("")){
+        if(client.getGender()!=null && !"".equals(client.getGender())){
             client.setGender(client.getGender());
         }
         if(client.getAge()>0){
             client.setAge(client.getAge());
         }
-        if(!client.getEmail().equals("")){
+        if(client.getEmail()!=null && !"".equals(client.getEmail())){
             client.setEmail(client.getEmail());
+        }
+        if(imgFileName!=null && !"".equals(imgFileName)){
+            String realPath= ServletActionContext.getServletContext().
+                    getRealPath("/imgs/client/");
+            File saveFile=new File(realPath,imgFileName);
+            FileUtils.copyFile(img,saveFile);
+            client.setImgUrl(realPath+imgFileName);
         }
         clientDao.save(client);
         return "success";
@@ -80,5 +92,21 @@ public class ManageUserAction {
 
     public void setClientId(long clientId) {
         this.clientId = clientId;
+    }
+
+    public File getImg() {
+        return img;
+    }
+
+    public void setImg(File img) {
+        this.img = img;
+    }
+
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
     }
 }

@@ -15,14 +15,12 @@
 <body>
 <div>
     <h2>修改用户信息</h2>
-    <form action="/manage/manage/modifyUser.action?clientId=${clientId}" method="post"  enctype="multipart/form-data">
+    <form action="/manage/manage/modifyCatgory.action?catgoryId=${catgoryId}" method="post" enctype="multipart/form-data">
         <div>
             <table>
-                <tr><td>昵称：</td><td><input name="client.name" type="text" value=""/></td></tr>
-                <tr><td>性别：</td><td><input name="client.gender" type="text" value=""/></td></tr>
-                <tr><td>年龄：</td><td><input name="client.age" type="text" /></td></tr>
-                <tr><td>邮箱：</td><td><input name="client.email" type="email" value=""/></td></tr>
-                <tr><td>头像：</td><td><input type="file" name="img"/></td></tr>
+                <tr><td>名称：</td><td><input name="catgory.name" type="text" value=""/></td></tr>
+                <tr><td>标题：</td><td><input name="catgory.gender" type="text" value=""/></td></tr>
+                <tr><td>图像：</td><td><input name="img" type="file" accept="image/gif, image/jpeg"/></td></tr>
             </table>
         </div>
         <div>

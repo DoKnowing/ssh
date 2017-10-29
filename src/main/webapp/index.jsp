@@ -11,11 +11,9 @@
     <title>Index</title>
 </head>
 <body>
-<form action="<%=request.getContextPath() %>/client/client_login.action" method="post" >
-    姓名:<input name="user.name" />
-    <input type="submit" name="login" value="登录" />
-</form>
-<a href="/client/client_registerPage">没有账号？点击注册</a>
-
+<div>
+    <div><a href="/client/base/loginPage.action"><button>用户登录</button></a></div>
+    <div><a href="/manage/base/loginPage.action"><button>管理员登录</button></a></div>
+</div>
 </body>
 </html>

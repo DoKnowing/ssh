@@ -14,14 +14,14 @@
 </head>
 <body>
 <div>
-    <a href="/client/personalPage.action"><input name="personalInformation" value="个人主页" title="个人主页" type="button"/></a>
+    <a href="/client/personalinfo/personalPage.action"><input name="personalInformation" value="个人主页" title="个人主页" type="button"/></a>
 </div>
 <div>
     <table>
         <tr><td>本学校的活动</td></tr>
         <tr>
             <c:forEach items="${catgories}" var="catg" varStatus="rowStatus">
-                <td><a href="/client/activity_byCatgory.action?catgoryId=${catg.id}"><input type="button" value="${catg.title}"/></a>|</td>
+                <td><a href="/client/operate/activity_byCatgory.action?catgoryId=${catg.id}"><input type="button" value="${catg.title}"/></a>|</td>
             </c:forEach>
         </tr>
     </table>
@@ -32,7 +32,7 @@
         <c:forEach items="${activities}" var="activity" varStatus="rowStatus">
             <tr>
                 <td>
-                    <a href="/client/detailPage.action?activityId=${activity.id}">
+                    <a href="/client/operate/detailPage.action?activityId=${activity.id}">
                         <button>
                         <label>${activity.name}</label><br>
                         <label>${activity.time}</label><br>

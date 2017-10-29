@@ -1,12 +1,12 @@
 package client.action;
 
-import client.dao.ActivityDao;
-import client.dao.CatgoryDao;
-import client.dao.ClientDao;
-import client.model.Activity;
-import client.model.Catgory;
-import client.model.Client;
+import common.dao.ClientDao;
+import common.model.Client;
 import com.opensymphony.xwork2.ActionContext;
+import common.dao.ActivityDao;
+import common.dao.CatgoryDao;
+import common.model.Activity;
+import common.model.Catgory;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
@@ -15,11 +15,16 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @Author: Sma
+ * @date: 2017-10-28 18:07
+ * @explain:
+ */
 public class ActivityAction {
     private ActivityDao activityDao=new ActivityDao();
     private ClientDao clientDao=new ClientDao();
     CatgoryDao catgoryDao=new CatgoryDao();
-    private List<Activity>  activities;
+    private List<Activity> activities;
     private List<Catgory> catgories;
     private Activity activity;
     private int catgoryId;
@@ -50,7 +55,7 @@ public class ActivityAction {
     }
 
     public String participatePage(){
-        Client user=(Client)ActionContext.getContext().getSession().get("client");
+        Client user=(Client) ActionContext.getContext().getSession().get("client");
         if(activityDao.getActivityByIdAndEmail(activityId,user.getEmail())==null)
             return "success";
         else
@@ -83,7 +88,7 @@ public class ActivityAction {
 
     public String closeActivity(){
         Activity existAct=activityDao.getActivityById(activityId);
-        if(existAct.getStatus().equals("开启")){
+        if(existAct.getStatus()!=null && "开启".equals(existAct.getStatus())){
             activityDao.closeActivityById(activityId);
         }else{
             return "failure";
@@ -111,22 +116,25 @@ public class ActivityAction {
     }
 
     public String createActivity() throws IOException {
-        String[] imgUrl=new String[img.length];
+
         String realPath= ServletActionContext.getServletContext().
                 getRealPath("/WEB-INF/imgs/");
-        for(int i=0;i<img.length;i++){
+        if(img!=null) {
+            String[] imgUrl=new String[img.length];
+            for (int i = 0; i < img.length; i++) {
 
-            File saveFile=new File(realPath,imgFileName[i]);
-            FileUtils.copyFile(img[i],saveFile);
-            imgUrl[i]=realPath+imgFileName[i];
+                File saveFile = new File(realPath, imgFileName[i]);
+                FileUtils.copyFile(img[i], saveFile);
+                imgUrl[i] = realPath + imgFileName[i];
+            }
+            activity.setImgs(imgUrl);
         }
-
 
         activity.setStatus("开启");
         activity.setInitiator((Client) ActionContext.getContext().getSession().get("client"));
         activity.setCatgory(catgoryDao.getCategoryById(catgoryId));
 
-        activity.setImgs(imgUrl);
+
         activityDao.saveActivity(activity);
 
         return "success";
