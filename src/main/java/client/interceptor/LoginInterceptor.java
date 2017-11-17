@@ -20,6 +20,6 @@ public class LoginInterceptor extends AbstractInterceptor{
             return invocation.invoke();
         }
         context.put("tip", "你还没有登录");
-        return "input";
+        return "login";
     }
 }

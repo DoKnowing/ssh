@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="common.model.Client" table="client">
+        <!--这里写column属性会报错,java.lang.NoClassDefFoundError: Could not initialize class util.HibernateUtils-->
+        <id name="id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="age" type="java.lang.Integer"/>
+        <property name="email" type="java.lang.String"/>
+        <property name="gender" type="java.lang.String"/>
+        <property name="imgUrl" type="java.lang.String"/>
+        <property name="institution" type="java.lang.String"/>
+        <property name="isAuthenticated" type="java.lang.Integer"/>
+        <property name="lastActivateTime" type="java.util.Date"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="pswd" type="java.lang.String"/>
+        <property name="registerTime" type="java.util.Date"/>
+        <property name="status" type="java.lang.Integer"/>
+        <property name="validateCode" type="java.lang.String"/>
+        <!--cascade="all"-->
+        <list name="myInitiateActivity" table="activity" inverse="true" cascade="all">
+            <key column="initiatorId"></key>
+            <list-index column="id"/>
+            <one-to-many class="common.model.Activity"/>
+        </list>
+        <list name="clientActivities" table="client_activity"  inverse="true" cascade="all">
+            <key column="clientId"></key>
+            <list-index column="id"/>
+            <one-to-many class="common.model.ClientActivity"/>
+        </list>
+
+    </class>
+</hibernate-mapping>

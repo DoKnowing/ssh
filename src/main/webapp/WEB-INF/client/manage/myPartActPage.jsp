@@ -11,30 +11,38 @@
 <html>
 <head>
     <title>Activity</title>
+    <link rel="stylesheet" href="/js/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="/js/jquery-ui-themes-1.12.1/themes/le-frog/theme.css">
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/myJquery-ui.js"></script>
 </head>
 <body>
-<div>
-    <h2>我参与的活动</h2>
+<div class="ui-widget">
+    <br>
+    <div align="right"><a href="/client/base/homePage.action">返回主页</a></div>
+    <br>
+    <div class="ui-state-highlight"></div>
+    <br>
+    <fieldset>
+    <legend>我参与的活动</legend>
     <table>
         <c:forEach items="${activities}" var="activity" varStatus="rowStatus">
             <tr>
                 <td>
                     <a href="/client/manage/myActivityDetailPage.action?activityId=${activity.id}">
-                        <button>
                             <label>${activity.name}</label>
-                        </button>
                     </a>
                 </td>
                 <td>
                     <a href="/client/manage/dropOutActivity.action?activityId=${activity.id}">
-                        <button>
                             <label>退出活动</label>
-                        </button>
                     </a>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    </fieldset>
 </div>
 </body>
 </html>

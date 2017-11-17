@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- 配置连接数据库的基本信息 -->
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql:///school_activity</property>
+
+        <!-- 配置 Hibernate 的基本信息 -->
+        <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <!-- 指定自动生成数据表的策略 -->
+        <!--<property name="hbm2ddl.auto">update</property>-->
+
+        <!--这些mapping文件中，各个类的id generator用hilo就会报错classNotFound-->
+        <mapping resource="common/model/Activity.hbm.xml"/>
+        <mapping resource="common/model/Client.hbm.xml"/>
+        <mapping resource="common/model/ClientActivity.hbm.xml"/>
+
+        <mapping resource="common/model/Catgory.hbm.xml"/>
+        <mapping resource="client/model/City.hbm.xml"/>
+        <mapping resource="client/model/Province.hbm.xml"/>
+        <mapping resource="manager/model/Manager.hbm.xml"/>
+    </session-factory>
+
+
+</hibernate-configuration>
+

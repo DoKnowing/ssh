@@ -18,6 +18,6 @@ public class LoginInterceptor extends AbstractInterceptor{
         if(manager!=null){
             return invocation.invoke();
         }
-        return "input";
+        return "login";
     }
 }

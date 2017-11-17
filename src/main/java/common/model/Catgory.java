@@ -1,5 +1,7 @@
 package common.model;
 
+import java.util.List;
+
 /**
  * @Author: Sma
  * @date: 2017-10-22 11:11
@@ -10,7 +12,7 @@ public class Catgory {
     private String name;
     private String title;
     private String urlImage;
-
+    private List<Activity> activityList;
     public long getId() {
         return id;
     }
@@ -41,5 +43,13 @@ public class Catgory {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public List<Activity> getActivityList() {
+        return activityList;
+    }
+
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 }

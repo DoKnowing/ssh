@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="common.model.ClientActivity" table="client_activity">
+        <!--这里写column属性会报错,java.lang.NoClassDefFoundError: Could not initialize class util.HibernateUtils-->
+        <id name="id">
+                <generator class="identity"/>
+        </id>
+        <property name="phoneNum" type="java.lang.String"/>
+        <property name="selfIntroduction" type="java.lang.String"/>
+        <many-to-one name="client" class="common.model.Client" column="clientId" fetch="join" lazy="false"/>
+        <many-to-one name="activity" class="common.model.Activity" column="activityId" fetch="join" lazy="false"  cascade="save-update"/>
+    </class>
+</hibernate-mapping>

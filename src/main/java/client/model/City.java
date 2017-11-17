@@ -3,10 +3,15 @@ package client.model;
 public class City {
     private long id;
     private String value;
+    private Province province;
+
 
     public City(long id, String value){
         this.id=id;
         this.value=value;
+    }
+
+    public City(){
     }
 
     public long getId() {
@@ -23,6 +28,14 @@ public class City {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package common.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Client {
     private long id;
@@ -16,6 +17,8 @@ public class Client {
     private String validateCode;
     private Date registerTime;
     private Date lastActivateTime;
+    private List<Activity> myInitiateActivity;
+    private List<ClientActivity> clientActivities;
 
     public Date getLastActivateTime() {
         return lastActivateTime;
@@ -120,6 +123,22 @@ public class Client {
 
     public void setIsAuthenticated(int isAuthenticated) {
         this.isAuthenticated = isAuthenticated;
+    }
+
+    public List<Activity> getMyInitiateActivity() {
+        return myInitiateActivity;
+    }
+
+    public void setMyInitiateActivity(List<Activity> myInitiateActivity) {
+        this.myInitiateActivity = myInitiateActivity;
+    }
+
+    public List<ClientActivity> getClientActivities() {
+        return clientActivities;
+    }
+
+    public void setClientActivities(List<ClientActivity> clientActivities) {
+        this.clientActivities = clientActivities;
     }
 }
 

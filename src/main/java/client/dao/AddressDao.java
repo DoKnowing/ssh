@@ -1,12 +1,13 @@
 package client.dao;
 
-import client.model.City;
 import client.model.Province;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
+@Service
+public class AddressDao implements client.daoInterface.AddressDaoInter {
 
-public class AddressDao {
-
+    @Override
     public List<Province> getProvinces(){
 
         List<Province> provinces=new LinkedList<Province>();
@@ -48,6 +49,7 @@ public class AddressDao {
         return provinces;
     }
 
+    @Override
     public Map getCitiesByProvId(long ProvinceId){
         Map cities= new HashMap<Integer,String>();
         cities.put("1","北京");

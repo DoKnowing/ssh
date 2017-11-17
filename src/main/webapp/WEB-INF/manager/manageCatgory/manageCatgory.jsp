@@ -11,19 +11,26 @@
 <html>
 <head>
     <title>Manage Catgory</title>
-</head>
+    <link rel="stylesheet" href="/js/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="/js/jquery-ui-themes-1.12.1/themes/le-frog/theme.css">
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/myManJquery-ui.js"></script></head>
 <body>
-<div>
+<div class="ui-widget" align="center">
+    <fieldset style="width: 700px">
     <h2>管理类型</h2>
-    <div>
-        <a href="/manage/manage/addCatgoryPage.action"><button>增加类型</button></a>
+        <div class="ui-state-highlight"></div><br>
+    <div align="left">
+        <a href="/manage/manage/addCatgoryPage.action">增加类型</a>
+        <a href="/manage/base/homePage.action">返回主页</a>
     </div>
     <div>
-        <table border="1">
+        <table border="1" width="700px">
             <c:forEach items="${catgories}" var="catgory" varStatus="rowStatus">
                 <tr>
-                    <td>${catgory.name}</td>
-                    <td>
+                    <td width="400px" align="center">${catgory.name}</td>
+                    <td width="300px" align="center">
                         <a href="/manage/manage/modifyCatgoryPage.action?catgoryId=${catgory.id}">修改</a>
                         <a href="/manage/manage/deleteCatgory.action?catgoryId=${catgory.id}">删除</a>
                         <a href="/manage/manage/manageActivityPage.action?catgoryId=${catgory.id}">管理活动</a>
@@ -32,6 +39,7 @@
             </c:forEach>
         </table>
     </div>
+    </fieldset>
 </div>
 </body>
 </html>

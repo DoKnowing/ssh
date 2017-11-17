@@ -6,6 +6,7 @@
 
 <struts>
     <constant name="struts.action.extension" value="do,action,else"></constant>
+    <constant name="struts.objectFactory" value="spring"/>
     <!--<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>-->
     <package name="client_default" namespace="/" extends="struts-default">
         <interceptors>
@@ -22,42 +23,43 @@
         </interceptors>
         <global-results>
             <result name="login">/WEB-INF/client/base/login.jsp</result>
-            <result name="authentication" type="chain">/client/personalinfo/authPage</result>
+            <result name="authentication" type="chain">
+                <param name="actionName">authPage</param>
+                <param name="namespace">/client/personalinfo</param>
+            </result>
         </global-results>
     </package>
 
-    <package name="client_base" namespace="/client/base" extends="struts-default">
-        <action name="registerPage" class="client.action.BaseAction" method="registerPage">
+    <package name="client_base" namespace="/client/base" extends="client_default">
+        <action name="registerPage" class="client.action.BaseClientAction" method="registerPage">
             <result>/WEB-INF/client/base/register.jsp</result>
         </action>
-        <action name="register" class="client.action.BaseAction" method="register">
+        <action name="register" class="client.action.BaseClientAction" method="register">
             <result name="success" >/WEB-INF/client/base/register_success.jsp</result>
         </action>
-        <action name="activate" class="client.action.BaseAction" method="activate">
+        <action name="activate" class="client.action.BaseClientAction" method="activate">
             <result name="success">/WEB-INF/client/base/activate_success.jsp</result>
             <result name="failure">/WEB-INF/client/base/activate_failure.jsp?message=${message}</result>
         </action>
-        <action name="loginPage" class="client.action.BaseAction" method="loginPage">
+        <action name="loginPage" class="client.action.BaseClientAction" method="loginPage">
             <result>/WEB-INF/client/base/login.jsp</result>
         </action>
 
-        <action name="login" class="client.action.BaseAction" method="login">
-            <result name="success" type="chain">
-                <param name="actionName">homePage</param>
-                <param name="namespace">/client/operate</param>
-            </result>
+        <action name="login" class="client.action.BaseClientAction" method="login">
+            <result name="success" type="chain">homePage</result>
             <result name="failure">/WEB-INF/client/base/login.jsp</result>
             <result name="input">/WEB-INF/client/base/login.jsp</result>
         </action>
         <action name="createCheckCode" class="client.action.CreateImageAction" method="create">
         </action>
+        <action name="homePage" class="client.action.BaseClientAction" method="homePage">
+            <result name="success">/WEB-INF/client/home.jsp</result>
+        </action>
     </package>
 
     <package name="client_operate" namespace="/client/operate" extends="client_default">
         <default-interceptor-ref name="login"></default-interceptor-ref>
-        <action name="homePage" class="client.action.OperateAction" method="homePage">
-            <result name="success">/WEB-INF/client/home.jsp</result>
-        </action>
+
         <action name="activity_*" class="client.action.ActivityAction" method="{1}">
             <result name="success">/WEB-INF/client/operate/showActivities.jsp</result>
         </action>
@@ -71,7 +73,7 @@
             <result name="success">/WEB-INF/client/personalinfo/participatorDetail.jsp</result>
         </action>
         <action name="participatePage" class="client.action.ActivityAction" method="participatePage">
-            <result name="success">/WEB-INF/client/operate/fillInformation.jsp?activityId=${activityId}</result>
+            <result name="success">/WEB-INF/client/operate/fillInformation.jsp</result>
             <result name="failure">/WEB-INF/client/operate/participateFailure.jsp</result>
             <interceptor-ref name="authen"></interceptor-ref>
         </action>
@@ -147,18 +149,36 @@
         </action>
     </package>
 
-    <package name="manager_base" namespace="/manage/base" extends="struts-default">
-        <action name="login" class="manager.action.BaseAction" method="login">
-            <result name="success">/WEB-INF/manager/base/home.jsp</result>
-            <result name="error">/WEB-INF/manager/base/home.jsp</result>
-            <result name="input">/manager_login.jsp</result>
+    <package name="manager_default" namespace="/" extends="struts-default">
+        <interceptors>
+            <interceptor name="authority_login" class="manager.interceptor.LoginInterceptor"></interceptor>
+            <interceptor-stack name="login">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority_login"/>
+            </interceptor-stack>
+        </interceptors>
+        <global-results>
+            <result name="login">/WEB-INF/manager/base/login.jsp</result>
+        </global-results>
+    </package>
+
+    <package name="manager_base" namespace="/manage/base" extends="manager_default">
+        <action name="loginPage" class="manager.action.BaseManagerAction" method="loginPage">
+            <result name="success">/WEB-INF/manager/base/login.jsp</result>
         </action>
-        <action name="homePage" class="manager.action.BaseAction" method="homePage">
+        <action name="login" class="manager.action.BaseManagerAction" method="login">
+            <result name="success" type="chain">homePage</result>
+            <result name="error">/WEB-INF/manager/base/login.jsp</result>
+            <result name="input">/WEB-INF/manager/base/login.jsp</result>
+        </action>
+        <action name="homePage" class="manager.action.BaseManagerAction" method="homePage">
             <result name="success">/WEB-INF/manager/base/home.jsp</result>
+            <interceptor-ref name="login"></interceptor-ref>
         </action>
     </package>
 
-    <package name="manager_manage" namespace="/manage/manage" extends="struts-default">
+    <package name="manager_manage" namespace="/manage/manage" extends="manager_default">
+        <default-interceptor-ref name="login"></default-interceptor-ref>
         <action name="manage*Page" class="manager.action.Manage{1}Action" method="manage{1}Page">
             <result>/WEB-INF/manager/manage{1}/manage{1}.jsp</result>
         </action>

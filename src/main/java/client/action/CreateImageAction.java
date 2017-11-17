@@ -2,6 +2,8 @@ package client.action;
 
 import org.apache.struts2.ServletActionContext;
 import org.junit.Test;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import util.MailUtil;
 
 import javax.imageio.ImageIO;
@@ -15,10 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-public class CreateImageAction {
+@Controller@Scope("prototype")
+public class CreateImageAction implements client.actionInterface.CreateImageActionInter {
     private static int WIDTH = 60;
     private static int HEIGHT = 20;
 
+    @Override
     public String createRandom(){
         String str="0123456789qwertyuiopasdfghjklzxcvbnm";
         char[] rands=new char[4];
@@ -29,6 +33,7 @@ public class CreateImageAction {
         return new String(rands);
     }
 
+    @Override
     public void drawBackground(Graphics g){
         //画灰色的背景
         g.setColor(new Color(0xDCDCDC));
@@ -57,7 +62,8 @@ public class CreateImageAction {
         }
     }
 
-    public void drawRands(Graphics g,String rands){
+    @Override
+    public void drawRands(Graphics g, String rands){
         g.setColor(Color.BLACK);
         g.setFont(new Font(null,Font.ITALIC | Font.BOLD,18));
         //在不同的高度上输出验证码的每个字符
@@ -68,6 +74,7 @@ public class CreateImageAction {
         System.out.println(rands);
     }
 
+    @Override
     public String create() throws IOException {
         HttpServletResponse response= ServletActionContext.getResponse();
         //设置浏览器不要缓存此图片

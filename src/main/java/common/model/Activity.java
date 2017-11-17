@@ -17,7 +17,7 @@ public class Activity {
     private String outline;
     private String detail;
     private Catgory catgory;
-    private List<Client> participators;
+    private List<ClientActivity> clientActivities;
     private String[] imgs;
     private String status;
 
@@ -78,12 +78,12 @@ public class Activity {
         this.initiator = initiator;
     }
 
-    public List<Client> getParticipators() {
-        return participators;
+    public List<ClientActivity> getClientActivities() {
+        return clientActivities;
     }
 
-    public void setParticipators(List<Client> participators) {
-        this.participators = participators;
+    public void setClientActivities(List<ClientActivity> clientActivities) {
+        this.clientActivities = clientActivities;
     }
 
     public String[] getImgs() {
@@ -109,4 +109,6 @@ public class Activity {
     public void setCatgory(Catgory catgory) {
         this.catgory = catgory;
     }
+
+
 }

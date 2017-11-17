@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="common.model.Activity" table="activity">
+    <!--这里写column属性会报错,java.lang.NoClassDefFoundError: Could not initialize class util.HibernateUtils-->
+    <id name="id" type="java.lang.Long">
+        <generator class="identity"/>
+    </id>
+    <property name="detail" type="java.lang.String"/>
+    <property name="location" type="java.lang.String"/>
+    <property name="name" type="java.lang.String"/>
+    <property name="outline" type="java.lang.String"/>
+    <property name="status" type="java.lang.String"/>
+    <property name="time" type="java.util.Date"/>
+<!--不添加fetch和lazy会报错，不添加cascade也会报错-->
+    <many-to-one name="initiator" class="common.model.Client" column="initiatorId" fetch="join" lazy="false" cascade="save-update"/>
+    <many-to-one name="catgory" class="common.model.Catgory" column="catgoryId" fetch="join" lazy="false" cascade="save-update"/>
+    <list name="clientActivities" table="client_activity" inverse="true" cascade="all">
+        <key column="activityId"></key>
+        <list-index column="id"/>
+        <one-to-many class="common.model.ClientActivity"/>
+    </list>
+    <array name="imgs" table="image_activity" cascade="all">
+        <key column="activityId"></key>
+        <list-index column="id"/>
+        <element column="name" type="java.lang.String"/>
+    </array>
+    </class>
+</hibernate-mapping>

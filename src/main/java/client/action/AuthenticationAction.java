@@ -1,8 +1,10 @@
 package client.action;
 
 import client.dao.AddressDao;
+import client.daoInterface.AddressDaoInter;
 import common.dao.ClientDao;
 import client.model.AuthMessage;
+import common.daoInterface.ClientDaoInter;
 import common.model.Client;
 import client.model.Province;
 import com.opensymphony.xwork2.ActionContext;
@@ -14,21 +16,26 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AuthenticationAction {
-    private ClientDao clientDao=new ClientDao();
-    private AddressDao addressDao=new AddressDao();
+@Controller@Scope("prototype")
+public class AuthenticationAction implements client.actionInterface.AuthenticationActionInter {
+    @Resource private ClientDaoInter clientDao;
+    @Resource private AddressDaoInter addressDao;
     private AuthMessage message;
     private List<Province> provinces;
 
     private long provinceId;
     private String returnCity;
 
+    @Override
     public String authPage(){
         Client user=(Client) ActionContext.getContext().getSession().get("client");
         if(user.getIsAuthenticated()==1){
@@ -38,6 +45,7 @@ public class AuthenticationAction {
         return "success";
     }
 
+    @Override
     public String authentication() throws Exception {
         Map map=new HashMap();
         if(message.getRealName()!=null && !"".equals(message.getRealName())) {
@@ -63,14 +71,16 @@ public class AuthenticationAction {
 //
 //        if(json.get("result").isok==true {
             Client user = (Client) ActionContext.getContext().getSession().get("client");
+        user=clientDao.getClientByEmail(user.getEmail());
             user.setIsAuthenticated(1);
 //            user.setInstitution(json.get("result").insititution);
-            user.setInstitution("华南理工大学");
+            user.setInstitution("scut");
             clientDao.save(user);
 //        }
         return "success";
     }
 
+    @Override
     public String beginAuthentication(String sendJson) throws Exception {
         String result;
         HttpClient client = new DefaultHttpClient();
@@ -94,6 +104,7 @@ public class AuthenticationAction {
          result = strber.toString();
          return result;
     }
+    @Override
     public String getCity() throws IOException {
         Map cities=addressDao.getCitiesByProvId(provinceId);
         JSONObject json = JSONObject.fromObject(cities);
@@ -102,39 +113,68 @@ public class AuthenticationAction {
     }
 
 
+    @Override
     public String authMessagePage(){
         return "success";
     }
 
+    @Override
     public AuthMessage getMessage() {
         return message;
     }
 
+    @Override
     public void setMessage(AuthMessage message) {
         this.message = message;
     }
 
+    @Override
     public List<Province> getProvinces() {
         return provinces;
     }
 
+    @Override
     public void setProvinces(List<Province> provinces) {
         this.provinces = provinces;
     }
 
+    @Override
     public long getProvinceId() {
         return provinceId;
     }
 
+    @Override
     public void setProvinceId(long provinceId) {
         this.provinceId = provinceId;
     }
 
+    @Override
     public String getReturnCity() {
         return returnCity;
     }
 
+    @Override
     public void setReturnCity(String returnCity) {
         this.returnCity = returnCity;
+    }
+
+    @Override
+    public ClientDaoInter getClientDao() {
+        return clientDao;
+    }
+
+    @Override
+    public void setClientDao(ClientDaoInter clientDao) {
+        this.clientDao = clientDao;
+    }
+
+    @Override
+    public AddressDaoInter getAddressDao() {
+        return addressDao;
+    }
+
+    @Override
+    public void setAddressDao(AddressDaoInter addressDao) {
+        this.addressDao = addressDao;
     }
 }

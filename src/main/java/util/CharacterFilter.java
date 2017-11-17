@@ -12,6 +12,6 @@ public class CharacterFilter extends StrutsPrepareAndExecuteFilter {
         HttpServletRequest request=(HttpServletRequest)req;
         request.setCharacterEncoding("UTF-8");
         chain.doFilter(request,res);
-        super.doFilter(req, res, chain);
+//        super.doFilter(req, res, chain);
     }
 }
