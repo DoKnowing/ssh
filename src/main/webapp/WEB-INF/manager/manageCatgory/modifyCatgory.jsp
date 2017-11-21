@@ -20,7 +20,7 @@
 <body>
 <div class="ui-widget">
     <fieldset>
-        <h2>修改用户信息</h2>
+        <h2>修改活动类别</h2>
         <div class="ui-state-highlight"></div><br>
         <form action="/manage/manage/modifyCatgory.action?catgoryId=${catgoryId}" method="post"
               enctype="multipart/form-data">

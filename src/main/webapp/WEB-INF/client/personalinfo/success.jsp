@@ -16,6 +16,6 @@
     <script src="/js/myJquery-ui.js"></script>    <%--<script src="/js/jquery-ui-1.12.1.custom/myJquery-ui.js"></script>--%>
 </head>
 <body>
-<h2>操作成功！<a href="/client/base/homePage.action">点此主页</a></h2>
+<h2>操作成功！<a href="/client/base/homePage.action">返回主页</a></h2>
 </body>
 </html>

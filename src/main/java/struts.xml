@@ -98,7 +98,7 @@
             <result name="success">/WEB-INF/client/personalinfo/personalPage.jsp</result>
         </action>
         <action name="modifyImgUrlPage" class="client.action.ClientAction" method="modifyImgUrlPage">
-            <result name="success">/WEB-INF/client/personalinfo/modifyImgUrlPage.jsp</result>
+            <result name="success">/WEB-INF/client/personalinfo/success.jsp</result>
         </action>
         <action name="modifyPersonalInfoPage" class="client.action.ClientAction" method="modifyPersonalInfoPage">
             <result name="success">/WEB-INF/client/personalinfo/modifyPersonalInfo.jsp</result>

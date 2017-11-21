@@ -40,7 +40,7 @@
                 </table>
             </div>
             <div>
-                <input type="submit" value="确认修改"/>
+                <input type="submit" value="确认添加"/>
             </div>
         </form>
     </fieldset>

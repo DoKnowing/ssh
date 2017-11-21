@@ -20,7 +20,7 @@
 <body>
 <div class="ui-widget" align="center">
     <fieldset style="width: 700px">
-        <h2>管理</h2>
+        <h2>管理活动</h2>
         <div class="ui-state-highlight"></div>
         <br>
         <div align="left">
